@@ -1,0 +1,13 @@
+
+> mkloth-ecommerce@1.0.0 start
+> next start
+
+   ▲ Next.js 15.5.9
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.100.41:3000
+
+ ✓ Starting...
+ ⚠ Found lockfile missing swc dependencies, patching...
+ ✓ Ready in 2.2s
+ ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
+[TypeError: Cannot read properties of undefined (reading 'os')]

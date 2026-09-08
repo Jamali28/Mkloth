@@ -1,0 +1,24 @@
+LICENSE
+=======
+
+IMPORTANT — READ BEFORE REPLACING THIS FILE
+-------------------------------------------
+
+This project is source code intended for sale on a code marketplace
+(e.g. CodeCanyon). The DISTRIBUTION LICENSE is your own item license.
+
+This placeholder file must be replaced by the license text you own from the
+marketplace before you distribute the item. Do not invent or copy a license
+text here — use the exact license file/document provided by the marketplace
+for your purchase (e.g. the "CodeCanyon Standard License" or "Extended
+License" text).
+
+TODO (seller action required)
+-----------------------------
+1. Drop in the marketplace-provided license text below.
+2. Update the reference in README.md and documentation/.
+3. Keep this file, renamed as required by the marketplace.
+
+----------------------------------------------------------------------------
+[PASTE YOUR MARKETPLACE ITEM LICENSE TEXT HERE]
+----------------------------------------------------------------------------
