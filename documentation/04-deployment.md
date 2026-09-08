@@ -54,19 +54,29 @@ Create a free Postgres database at [Neon](https://neon.tech) or
 
 ### 2. Configure the platform
 
-Netlify → **Site configuration → Environment variables**:
+Add these in your platform's project → **Settings → Environment variables**
+(Netlify: "Site configuration → Environment variables"):
 
 | Key             | Value                                      |
 | --------------- | ------------------------------------------ |
 | `DATABASE_URL`  | your Postgres connection string            |
 | `AUTH_SECRET`   | `openssl rand -base64 32`                  |
 
-Set the build command to `npm run db:setup && npm run build` (or just keep the
-committed `netlify.toml` — it already includes this). The build will:
+The repo ships with the build wiring for both platforms — no extra dashboard
+settings needed:
+
+- **Netlify** — `netlify.toml` sets the build command to
+  `npm run db:setup && npm run build`.
+- **Vercel** — `vercel.json` sets the same build command.
+
+The build will:
 
 1. `prisma generate` against the Postgres schema (postinstall)
 2. push the schema to your DB and seed demo data if the DB is empty
 3. prerender the storefront pages with real data
+
+If `DATABASE_URL` is missing, the build stops early with clear instructions
+instead of a cryptic Prisma error.
 
 When `DATABASE_URL` is a Postgres URL, `prisma.config.ts` automatically points
 Prisma at `prisma/schema.postgresql.prisma`. Locally (SQLite `file:` URL) it
