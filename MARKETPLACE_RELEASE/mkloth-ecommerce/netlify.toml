@@ -1,0 +1,17 @@
+# Netlify configuration
+# Requires a DATABASE_URL pointing to a hosted PostgreSQL database (e.g.
+# Neon, Supabase). Set it under Site configuration → Environment variables.
+#
+#   Build flow:
+#     1. npm install (postinstall runs `prisma generate` against the Postgres schema)
+#     2. npm run db:setup  → db push (create tables) + seed demo data if empty
+#     3. npm run build     → prerenders pages with real data
+[build]
+  command = "npm run db:setup && npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="sale promotion">
+  <defs>
+    <linearGradient id="pbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#241E1A"/>
+      <stop offset="100%" stop-color="#0A0908"/>
+    </linearGradient>
+    <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B6247"/>
+      <stop offset="100%" stop-color="#52392A"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#pbg)"/>
+  <g transform="translate(-20 50) scale(0.66)">
+    <path d="M330 285 L252 240 L182 324 Q 242 348 238 388 L238 700 Q 400 734 562 700 L562 388 Q 558 348 618 324 L548 240 L470 285 Q 400 324 330 285 Z" fill="url(#pg)" stroke="#14110E" stroke-width="2"/><path d="M288 430 L284 660" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.08" fill="none"/><path d="M516 430 L520 660" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.08" fill="none"/><path d="M330 448 L326 660" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.05" fill="none"/><path d="M304 258 Q 400 300 496 258" stroke="undefined" stroke-width="13" fill="none" stroke-linecap="round"/>
+  </g>
+  <line x1="0" y1="460" x2="500" y2="460" stroke="#C6A15B" stroke-width="1" opacity="0.3"/>
+</svg>
