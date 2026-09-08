@@ -10,7 +10,7 @@ Full setup, configuration, admin, deployment, and customization guides live in
 - **Next.js 15.5** (App Router) + **TypeScript**
 - **Tailwind CSS v4** + hand-written **shadcn/ui** components + **tw-animate-css**
 - **Framer Motion** — page, card, drawer, sheet, and micro-interactions
-- **Prisma** + **SQLite** — schema & ORM
+- **Prisma** + **SQLite** (local) / **PostgreSQL** (hosted deployments) — schema & ORM
 - **NextAuth v5** (beta) — Credentials provider, JWT sessions, ADMIN/USER roles
 - **Zod** — input validation, **Sonner** — toasts, **Lucide** — icons
 
@@ -52,7 +52,7 @@ Admin area is at `/admin` (protected — only ADMIN role).
 
 Copy `.env.example` to `.env` and fill in the values before running the app. Variables:
 
-- `DATABASE_URL` — SQLite connection string
+- `DATABASE_URL` — SQLite file (`file:./prisma/dev.db`) locally; a Postgres URL (`postgresql://...`) on Netlify/Vercel. When it's Postgres, `prisma.config.ts` auto-switches to `prisma/schema.postgresql.prisma`
 - `AUTH_SECRET` — NextAuth session secret (generate with `openssl rand -base64 32`)
 - `AUTH_TRUST_HOST`, `NEXTAUTH_URL` — NextAuth host config
 - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_JWT_SECRET` — only required if you use the optional Google OAuth login via Supabase
@@ -77,8 +77,9 @@ Copy `.env.example` to `.env` and fill in the values before running the app. Var
 | `npm run dev`      | Start dev server                     |
 | `npm run build`    | Production build                     |
 | `npm start`        | Serve the production build           |
-| `npm run db:push`  | Sync Prisma schema to SQLite         |
+| `npm run db:push`  | Sync Prisma schema to the database (SQLite or Postgres) |
 | `npm run db:seed`  | Seed categories, products, and users |
+| `npm run db:setup` | Postgres-only: push schema + seed if empty (Netlify build step) |
 
 ## Project Structure
 

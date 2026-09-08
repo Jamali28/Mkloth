@@ -39,15 +39,47 @@ Back up two things regularly:
 
 ## Option B — Serverless (Vercel / Netlify)
 
-The app builds and runs on Vercel, but read this first:
+The app builds and runs on serverless, but **SQLite does not work there** — the
+filesystem is read-only and ephemeral, and the local `.db` file isn't even in
+Git (it's gitignored). Use a hosted PostgreSQL database instead.
 
-- **SQLite is an on-disk file.** On serverless, the filesystem is read-only and
-  ephemeral. Use Prisma + a proper hosted database (PostgreSQL, or
-  `libsql://` via Turso with a `libsql` driver) for production data. This
-  requires changing the Prisma datasource in `prisma/schema.prisma`.
-- **Local image uploads** (`public/uploads`) do not persist on serverless.
-  Uploads must go to blob/object storage (e.g. Vercel Blob, S3) if you go this
-  route.
+The repo ships with everything needed (Postgres schema, env-based schema
+switch, Netlify build script):
+
+### 1. Create a database
+
+Create a free Postgres database at [Neon](https://neon.tech) or
+[Supabase](https://supabase.com) and copy its connection string (starts with
+`postgresql://...`).
+
+### 2. Configure the platform
+
+Netlify → **Site configuration → Environment variables**:
+
+| Key             | Value                                      |
+| --------------- | ------------------------------------------ |
+| `DATABASE_URL`  | your Postgres connection string            |
+| `AUTH_SECRET`   | `openssl rand -base64 32`                  |
+
+Set the build command to `npm run db:setup && npm run build` (or just keep the
+committed `netlify.toml` — it already includes this). The build will:
+
+1. `prisma generate` against the Postgres schema (postinstall)
+2. push the schema to your DB and seed demo data if the DB is empty
+3. prerender the storefront pages with real data
+
+When `DATABASE_URL` is a Postgres URL, `prisma.config.ts` automatically points
+Prisma at `prisma/schema.postgresql.prisma`. Locally (SQLite `file:` URL) it
+keeps using `prisma/schema.prisma` and `prisma/dev.db` as before.
+
+### Notes
+
+- **Uploads:** local image uploads (`public/uploads`) still do not persist on
+  serverless. Uploads must go to blob/object storage (e.g. S3, Vercel Blob) if
+  you go this route.
+- **Seeding:** on the first deploy the DB is seeded if empty; later redeploys
+  do not wipe orders/admin changes.
+- **Local dev keeps working** — nothing in the SQLite workflow changed.
 
 For a first production launch, **Option A is strongly recommended** — it is
 exactly what the app is designed for.
