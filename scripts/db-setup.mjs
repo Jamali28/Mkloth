@@ -8,7 +8,7 @@ import { PrismaClient } from "@prisma/client";
 // - Otherwise → uses the committed SQLite database at prisma/prisma/dev.db
 //   and pushes/seeds it (idempotent, no external services needed).
 const resolvedUrl =
-  process.env.DATABASE_URL ??
+  process.env.DATABASE_URL?.trim() ||
   `file:${process.cwd()}/prisma/prisma/dev.db`;
 
 process.env.DATABASE_URL = resolvedUrl;
