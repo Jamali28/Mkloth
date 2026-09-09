@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
     // input enters them), so allowing SVG here is safe.
     dangerouslyAllowSVG: true,
   },
+  // The committed SQLite database must be bundled with every serverless
+  // function so read queries (login, product pages, admin) work at runtime —
+  // the file is opened via a cwd-relative URL in src/lib/prisma.ts.
+  outputFileTracingIncludes: {
+    "/**/*": ["./prisma/prisma/dev.db"],
+  },
 };
 
 export default nextConfig;

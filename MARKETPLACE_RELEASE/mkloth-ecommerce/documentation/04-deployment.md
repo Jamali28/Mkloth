@@ -43,8 +43,10 @@ The app builds and runs on serverless, but **SQLite does not work there** — th
 filesystem is read-only and ephemeral, and the local `.db` file isn't even in
 Git (it's gitignored). Use a hosted PostgreSQL database instead.
 
-The repo ships with everything needed (Postgres schema, env-based schema
-switch, Netlify build script):
+The repo ships with the Postgres schema and the env-based schema switch
+(`prisma.config.ts`). The `netlify.toml` / `vercel.json` files have been
+removed (this repo's deployment target is a VPS — see Option A), so set the
+build command in the platform's dashboard instead:
 
 ### 1. Create a database
 
@@ -62,12 +64,9 @@ Add these in your platform's project → **Settings → Environment variables**
 | `DATABASE_URL`  | your Postgres connection string            |
 | `AUTH_SECRET`   | `openssl rand -base64 32`                  |
 
-The repo ships with the build wiring for both platforms — no extra dashboard
-settings needed:
-
-- **Netlify** — `netlify.toml` sets the build command to
-  `npm run db:setup && npm run build`.
-- **Vercel** — `vercel.json` sets the same build command.
+Then set the platform's **build command** to
+`npm run db:setup && npm run build` (Netlify: Site configuration → Build
+& deploy → Build command; Vercel: Settings → Build & Development Settings).
 
 The build will:
 
